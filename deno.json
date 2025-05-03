@@ -6,7 +6,7 @@
     "lib": ["ES2020"]
   },
   "imports": {
-    "@bewis09/obs-interface": "jsr:@bewis09/obs-interface@^1.0.3",
+    "@bewis09/obs-interface": "jsr:@deno-plc/obs-interface@^1.0.4",
     "@deno-plc/adapter-tcp": "jsr:@deno-plc/adapter-tcp@^1.1.0",
     "@deno-plc/nats": "jsr:@deno-plc/nats@^0.3.4"
   }
