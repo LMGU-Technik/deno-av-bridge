@@ -1,0 +1,114 @@
+{
+  "version": "5",
+  "specifiers": {
+    "jsr:@bewis09/obs-interface@^1.0.3": "1.0.3",
+    "jsr:@deno-plc/adapter-tcp@^1.1.0": "1.1.0",
+    "jsr:@deno-plc/nats@~0.3.4": "0.3.4",
+    "jsr:@deno-plc/signal-utils@^0.0.5": "0.0.5",
+    "jsr:@deno-plc/signals@^0.0.2": "0.0.2",
+    "jsr:@deno-plc/utils@0.2": "0.2.0",
+    "jsr:@logtape/logtape@0.8": "0.8.2",
+    "jsr:@logtape/logtape@~0.8.2": "0.8.2",
+    "jsr:@std/assert@^1.0.9": "1.0.13",
+    "jsr:@std/bytes@^1.0.5": "1.0.5",
+    "jsr:@std/encoding@^1.0.10": "1.0.10",
+    "jsr:@std/msgpack@^1.0.3": "1.0.3",
+    "npm:@preact/signals@^2.0.1": "2.0.4_preact@10.26.5",
+    "npm:preact@^10.22.1": "10.26.5",
+    "npm:zod@^3.24.1": "3.24.3"
+  },
+  "jsr": {
+    "@bewis09/obs-interface@1.0.3": {
+      "integrity": "2f08d0139b284b38b93276ddeadb3a0e0cb2be5e39aa27dc75fd80d6b6c4a565",
+      "dependencies": [
+        "jsr:@std/encoding"
+      ]
+    },
+    "@deno-plc/adapter-tcp@1.1.0": {
+      "integrity": "7261bc473e0514523f974112f1d6bd4b056bc0d6c280645a9c2e2503e674cc6f",
+      "dependencies": [
+        "jsr:@deno-plc/signals",
+        "jsr:@logtape/logtape@~0.8.2"
+      ]
+    },
+    "@deno-plc/nats@0.3.4": {
+      "integrity": "b423305881a75e099d70395a5506e80eba8cbecfa54c836b50c07b2f26d96c57",
+      "dependencies": [
+        "jsr:@deno-plc/signal-utils",
+        "jsr:@deno-plc/signals",
+        "jsr:@deno-plc/utils",
+        "jsr:@logtape/logtape@0.8",
+        "jsr:@std/assert",
+        "jsr:@std/msgpack",
+        "npm:preact",
+        "npm:zod"
+      ]
+    },
+    "@deno-plc/signal-utils@0.0.5": {
+      "integrity": "186f013f1702571fb09f91c7630b6ea54e432664162aa4011fcb1b3ec56d6f31",
+      "dependencies": [
+        "jsr:@deno-plc/signals"
+      ]
+    },
+    "@deno-plc/signals@0.0.2": {
+      "integrity": "8ad0c2d29b8a657059ee5f53b5cadad08c9d1b1b659c93dd04e5b9d4ff6e0cc6",
+      "dependencies": [
+        "npm:@preact/signals"
+      ]
+    },
+    "@deno-plc/utils@0.2.0": {
+      "integrity": "af12e45edac2a0e326243bacad1544ea8baaddd385e50c69804014def5fce867"
+    },
+    "@logtape/logtape@0.8.2": {
+      "integrity": "e2ae1fc2561e8d010359b9894efb39bdb559dae44f5824540cbb26a78eee36bc"
+    },
+    "@std/assert@1.0.13": {
+      "integrity": "ae0d31e41919b12c656c742b22522c32fb26ed0cba32975cb0de2a273cb68b29"
+    },
+    "@std/bytes@1.0.5": {
+      "integrity": "4465dd739d7963d964c809202ebea6d5c6b8e3829ef25c6a224290fbb8a1021e"
+    },
+    "@std/encoding@1.0.10": {
+      "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
+    },
+    "@std/msgpack@1.0.3": {
+      "integrity": "b384239867dfd08aba9069d433e415a8229c6f966716d6b7fd3972a6fe605848",
+      "dependencies": [
+        "jsr:@std/bytes"
+      ]
+    }
+  },
+  "npm": {
+    "@preact/signals-core@1.8.0": {
+      "integrity": "sha512-OBvUsRZqNmjzCZXWLxkZfhcgT+Fk8DDcT/8vD6a1xhDemodyy87UJRJfASMuSD8FaAIeGgGm85ydXhm7lr4fyA=="
+    },
+    "@preact/signals@2.0.4_preact@10.26.5": {
+      "integrity": "sha512-9241aGnIv7y0IGzaq2vkBMe8/0jGnnmEEUeFmAoTWsaj8q/BW2PVekL8nHVJcy69bBww6rwEy3A1tc6yPE0sJA==",
+      "dependencies": [
+        "@preact/signals-core",
+        "preact"
+      ]
+    },
+    "preact@10.26.5": {
+      "integrity": "sha512-fmpDkgfGU6JYux9teDWLhj9mKN55tyepwYbxHgQuIxbWQzgFg5vk7Mrrtfx7xRxq798ynkY4DDDxZr235Kk+4w=="
+    },
+    "zod@3.24.3": {
+      "integrity": "sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg=="
+    }
+  },
+  "remote": {
+    "https://deno.land/x/sacn@v1.0.2/lib/dmxAddr.ts": "1a22ff3b1e0b20faee573c6d6cac9882e18c79a6f039dca1db440fdc5f92618e",
+    "https://deno.land/x/sacn@v1.0.2/lib/util.ts": "a288ea67c73cfb82079d121f9cdd8af3c5b8c4acdb276c34ce0c1d4c9da0e74d",
+    "https://deno.land/x/sacn@v1.0.2/mod.ts": "3f9cccc0743fbde7167c12de69611e20b04718818fbbcb30f859bc91e5b57774",
+    "https://deno.land/x/sacn@v1.0.2/src/constants.ts": "91736bad9395b8287fac09d29de1d7a20136337adc8a103fd0c257ad7b25de90",
+    "https://deno.land/x/sacn@v1.0.2/src/packet.ts": "5d3521ae44ce16ae897850fbc7a71255cba2c10d898c73734397fa329a418c46",
+    "https://deno.land/x/sacn@v1.0.2/src/receiver.ts": "9a5d3ba3cff8ae21f2a92e2fd611b076aaa24aac3e991fd759e4798690ddea56"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@bewis09/obs-interface@^1.0.3",
+      "jsr:@deno-plc/adapter-tcp@^1.1.0",
+      "jsr:@deno-plc/nats@~0.3.4"
+    ]
+  }
+}
