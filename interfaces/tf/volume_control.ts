@@ -1,6 +1,7 @@
 import { globalToDmx, Receiver } from "https://deno.land/x/sacn@v1.0.2/mod.ts";
 import { try_get_nats } from "@deno-plc/nats";
 import { encode } from "jsr:@std/msgpack@^1.0.3/encode";
+import { BIND_IP } from "../../backend/config.ts";
 
 const points: [number, number][] = [
     [10_00, 0],
@@ -46,7 +47,9 @@ export class TFVolumeControl {
     }
 
     async listen() {
-        this.receiver = new Receiver();
+        this.receiver = new Receiver({
+            iface: BIND_IP
+        });
 
         await this.receiver.addUniverse(this.universe);
         
@@ -68,11 +71,13 @@ export class TFVolumeControl {
                     console.error(`%cBlocking channel ${c.channel_type} ${c.channel} because the volume is set to 100%. This is probably a mistake.`, "color: red;");
 
                     this.blocked_channels.push(c.address);
+                    
+                try_get_nats()?.publish(`tf.mixer.${c.channel_type.toLowerCase()}.${c.channel}.fader.level`, encode(fader2db(1)));
 
                     return;
                 }
 
-                try_get_nats()?.publish(`tf.mixer.${c.channel_type}.${c.channel}.fader.level`, encode(fader2db(value / 255)));
+                try_get_nats()?.publish(`tf.mixer.${c.channel_type.toLowerCase()}.${c.channel}.fader.level`, encode(fader2db(1 - value / 255)));
             });
         }
     }

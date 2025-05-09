@@ -1,5 +1,6 @@
 import { ObsConnection, RequestTypes } from "@bewis09/obs-interface"
 import { globalToDmx, Receiver } from "https://deno.land/x/sacn@v1.0.2/mod.ts";
+import { BIND_IP } from "../../backend/config.ts";
 
 export class OBSSceneControl {
     private receiver: Receiver | null = null;
@@ -16,10 +17,14 @@ export class OBSSceneControl {
     }
 
     async listen() {
-        const r2 = new Receiver();
+        const r2 = new Receiver({
+            iface: BIND_IP
+        });
         await r2.addUniverse(1);
 
-        this.receiver = new Receiver();
+        this.receiver = new Receiver({
+            iface: BIND_IP
+        });
 
         await this.receiver.addUniverse(this.universe);
 

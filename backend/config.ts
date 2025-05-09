@@ -1,0 +1,1 @@
+export const BIND_IP = "10.101.112.18"
