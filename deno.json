@@ -3,7 +3,7 @@
     "backend": "deno run --allow-net --allow-env --unstable-net --watch --env=.env backend/backend.ts"
   },
   "compilerOptions": {
-    "lib": ["ES2020"]
+    "lib": ["ES2024"]
   },
   "imports": {
     "@bewis09/obs-interface": "jsr:@deno-plc/obs-interface@^1.0.4",

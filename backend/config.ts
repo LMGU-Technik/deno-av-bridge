@@ -1,1 +1,1 @@
-export const BIND_IP = "10.101.112.18"
+export const BIND_IP = "0.0.0.0"

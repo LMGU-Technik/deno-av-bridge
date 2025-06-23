@@ -1,4 +1,4 @@
-import { globalToDmx, Receiver } from "https://deno.land/x/sacn@v1.0.2/mod.ts";
+import { globalToDmx, Receiver } from "jsr:@deno-plc/sacn";
 import { try_get_nats } from "@deno-plc/nats";
 import { encode } from "jsr:@std/msgpack@^1.0.3/encode";
 import { BIND_IP } from "../../backend/config.ts";
@@ -34,8 +34,8 @@ export class TFVolumeControl {
     private receiver: Receiver | null = null;
 
     constructor(
-        readonly universe: number, 
-        readonly channels: addressed_channel[], 
+        readonly universe: number,
+        readonly channels: addressed_channel[],
         options?: tf_volume_control_options
     ) {
         this.universe = universe;
@@ -43,7 +43,7 @@ export class TFVolumeControl {
         this.options = options || {};
 
         console.log(`Initalized tf volume control for addresses ${this.channels.map((c) => c.address).join(", ")} in universe ${this.universe}`);
-        
+
     }
 
     async listen() {
@@ -52,11 +52,11 @@ export class TFVolumeControl {
         });
 
         await this.receiver.addUniverse(this.universe);
-        
-        for await (const [a, value] of this.receiver) {
-            const [_, addr] = globalToDmx(a);
 
-            this.channels.filter((c) => c.address == addr).forEach((c) => {
+        for await (const [a, value] of this.receiver) {
+            const [universe, addr] = globalToDmx(a);
+
+            this.channels.filter((c) => c.address == addr && this.universe == universe).forEach((c) => {
                 if (this.blocked_channels.includes(c.address)) {
                     if (value > 0) {
                         return;
@@ -71,8 +71,8 @@ export class TFVolumeControl {
                     console.error(`%cBlocking channel ${c.channel_type} ${c.channel} because the volume is set to 100%. This is probably a mistake.`, "color: red;");
 
                     this.blocked_channels.push(c.address);
-                    
-                try_get_nats()?.publish(`tf.mixer.${c.channel_type.toLowerCase()}.${c.channel}.fader.level`, encode(fader2db(1)));
+
+                    try_get_nats()?.publish(`tf.mixer.${c.channel_type.toLowerCase()}.${c.channel}.fader.level`, encode(fader2db(1)));
 
                     return;
                 }

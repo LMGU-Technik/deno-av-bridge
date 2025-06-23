@@ -3,7 +3,7 @@ import {
     TCPAdapterCallback,
     TCPAdapterSession,
 } from "@deno-plc/adapter-tcp";
-import { globalToDmx, Receiver } from "https://deno.land/x/sacn@v1.0.2/mod.ts";
+import { globalToDmx, Receiver } from "jsr:@deno-plc/sacn";
 import { BIND_IP } from "../../backend/config.ts";
 
 let send_tcp: TCPAdapterCallback | undefined = undefined;
@@ -42,7 +42,9 @@ export class VLCControlInterface extends TCPAdapter {
         let waitPosition: number | undefined = undefined;
 
         for await (const [a, value] of this.receiver) {
-            const [_, addr] = globalToDmx(a);
+            const [universe, addr] = globalToDmx(a);
+
+            if (universe !== this.universe) continue;
 
             if (addr == this.addr + 1) {
                 this.position = (this.position % 0xFF) + (value << 8)

@@ -1,5 +1,5 @@
 import { bufferEqual } from "https://deno.land/x/sacn@v1.0.2/lib/util.ts";
-import { Receiver } from "https://deno.land/x/sacn@v1.0.2/mod.ts";
+import { Receiver } from "jsr:@deno-plc/sacn";
 import { sACNSource } from "https://deno.land/x/sacn@v1.0.2/src/receiver.ts";
 import { BIND_IP } from "../../backend/config.ts";
 

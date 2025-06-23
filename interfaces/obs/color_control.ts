@@ -1,4 +1,4 @@
-import { globalToDmx, Receiver } from "https://deno.land/x/sacn@v1.0.2/mod.ts";
+import { globalToDmx, Receiver } from "jsr:@deno-plc/sacn";
 import { ObsConnection, RequestTypes } from "@bewis09/obs-interface";
 import { BIND_IP } from "../../backend/config.ts";
 
@@ -26,7 +26,9 @@ export class OBSColorControl {
         await this.receiver.addUniverse(this.universe);
 
         for await (const [a, value] of this.receiver) {
-            const [_, addr] = globalToDmx(a);
+            const [universe, addr] = globalToDmx(a);
+
+            if (universe !== this.universe) continue;
 
             this.controls.forEach((control) => {
                 if (addr - control.dmx_start > 2 || addr < control.dmx_start) return;
