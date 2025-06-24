@@ -1,10 +1,7 @@
-import {
-    TCPAdapter,
-    TCPAdapterCallback,
-    TCPAdapterSession,
-} from "@deno-plc/adapter-tcp";
+import { TCPAdapter, TCPAdapterCallback, TCPAdapterSession } from "@deno-plc/adapter-tcp";
 import { globalToDmx, Receiver } from "jsr:@deno-plc/sacn";
 import { BIND_IP } from "../../backend/config.ts";
+import { vlc } from "../../backend/backend.ts";
 
 let send_tcp: TCPAdapterCallback | undefined = undefined;
 let firstElement = 4;
@@ -28,13 +25,13 @@ export class VLCControlInterface extends TCPAdapter {
             label: "vlc",
             sessionFactory: (send: TCPAdapterCallback) => {
                 return new VLCControlProtocolAdapterSession(this, send);
-            }
+            },
         });
     }
 
     async listen() {
         this.receiver = new Receiver({
-            iface: BIND_IP
+            iface: BIND_IP,
         });
 
         await this.receiver.addUniverse(this.universe);
@@ -47,7 +44,7 @@ export class VLCControlInterface extends TCPAdapter {
             if (universe !== this.universe) continue;
 
             if (addr == this.addr + 1) {
-                this.position = (this.position % 0xFF) + (value << 8)
+                this.position = (this.position % 0xFF) + (value << 8);
 
                 if (waitPosition) continue;
 
@@ -58,7 +55,7 @@ export class VLCControlInterface extends TCPAdapter {
             }
 
             if (addr == this.addr + 2) {
-                this.position = (this.position & 0xFF00) + value
+                this.position = (this.position & 0xFF00) + value;
 
                 if (waitPosition) continue;
 
@@ -97,7 +94,9 @@ export class VLCControlInterface extends TCPAdapter {
 
 class VLCControlProtocolAdapterSession implements TCPAdapterSession {
     constructor(readonly adapter: VLCControlInterface, send: TCPAdapterCallback) {
-        console.log("Connected to VLC control interface");
+        console.error("\x1b[0;32m✓ Connected to VLC\x1b[0;0m");
+
+        vlc[0] = true;
 
         send(new TextEncoder().encode("password\n"));
         send_tcp = send;
@@ -115,18 +114,17 @@ class VLCControlProtocolAdapterSession implements TCPAdapterSession {
         for (const line of lines) {
             if (line.startsWith("|  *")) {
                 isPlaylist = true;
-                firstElement = Number(line.substring(4).split(" ")[0])
+                firstElement = Number(line.substring(4).split(" ")[0]);
             }
 
             if (line.startsWith("| ") && !line.startsWith("|  ") && isPlaylist) {
                 isPlaylist = false;
                 const last = lines[lines.indexOf(line) - 1];
-                lastElement = Number(last.substring(4).split(" ")[0])
+                lastElement = Number(last.substring(4).split(" ")[0]);
             }
         }
     }
 
     destroy(): void {
-
     }
 }

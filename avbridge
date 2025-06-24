@@ -36,4 +36,4 @@ for arg in "$@"; do
   esac
 done
 
-deno task backend $@
+deno task backend $@ 2>&1 > /dev/null

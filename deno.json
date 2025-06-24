@@ -1,6 +1,6 @@
 {
     "tasks": {
-        "backend": "deno run --allow-net --allow-env --allow-run --allow-write --allow-read --unstable-net --watch --env=.env backend/backend.ts"
+        "backend": "deno run -A --unstable-net --env=.env backend/backend.ts"
     },
     "compilerOptions": {
         "lib": ["ES2024", "deno.window"]
