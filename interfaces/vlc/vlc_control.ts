@@ -72,7 +72,7 @@ export class VLCControlInterface extends TCPAdapter {
                 continue;
             }
 
-            if (value == 0 || value > lastElement - firstElement + 1) {
+            if ((value == 0) || (value > lastElement - firstElement + 1)) {
                 send_tcp?.(new TextEncoder().encode("pause\n"));
                 continue;
             }
@@ -102,7 +102,9 @@ class VLCControlProtocolAdapterSession implements TCPAdapterSession {
         send(new TextEncoder().encode("password\n"));
         send_tcp = send;
 
-        send(new TextEncoder().encode("playlist\n"));
+        setTimeout(() => {
+            send(new TextEncoder().encode("playlist\n"));
+        }, 100);
     }
 
     recv(_: Uint8Array): void {

@@ -2,6 +2,7 @@ import { parseArgs } from "jsr:@std/cli/parse-args";
 import { startAudioAndConnect } from "./programs/audio.ts";
 import { startOBSAndConnect } from "./programs/obs.ts";
 import { startVLCandConnect } from "./programs/vlc.ts";
+import { get_nats } from "@deno-plc/nats";
 
 const args = parseArgs(Deno.args, {
     boolean: ["obs", "audio"],

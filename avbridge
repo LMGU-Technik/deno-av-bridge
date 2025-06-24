@@ -1,0 +1,21 @@
+cd ~/deno-av-bridge
+
+for arg in "$@"; do
+  case $arg in
+    --obs)
+      nohup obs &> /dev/null &
+      disown
+      ;;
+    --audio)
+      nohup nats-server -c nats.conf &> /dev/null &
+      disown
+      ;;
+    --vlc=*)
+      vlc_file="data/${arg#--vlc=}"
+      nohup vlc "$vlc_file" &> /dev/null &
+      disown
+      ;;
+  esac
+done
+
+deno task backend $@
