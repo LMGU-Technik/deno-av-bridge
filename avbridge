@@ -1,5 +1,23 @@
 cd ~/deno-av-bridge
 
+if [ -f scripts.conf ]; then
+  predefined_args=()
+  while IFS= read -r line || [ -n "$line" ]; do
+    [[ -z "$line" || "$line" =~ ^# ]] && continue
+    key="${line%%=*}"
+    value="${line#*=}"
+    predefined_args+=("$key=$value")
+  done < scripts.conf
+
+  for pair in "${predefined_args[@]}"; do
+    if [[ "$pair" == "$1="* ]]; then
+      read -ra newargs <<< "${pair#*=}"
+      set -- "${newargs[@]}"
+      break
+    fi
+  done
+fi
+
 for arg in "$@"; do
   case $arg in
     --obs)
@@ -11,7 +29,7 @@ for arg in "$@"; do
       disown
       ;;
     --vlc=*)
-      vlc_file="data/${arg#--vlc=}"
+      vlc_file="data/${arg#--vlc=}.xspf"
       nohup vlc "$vlc_file" &> /dev/null &
       disown
       ;;
